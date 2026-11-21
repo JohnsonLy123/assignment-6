@@ -16,6 +16,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
   }
 });
 
+// Select all courses
 app.get('/api/courses', (req, res) => {
   db.all('SELECT * FROM courses', [], (err, rows) => {
     if (err) {
@@ -25,6 +26,7 @@ app.get('/api/courses', (req, res) => {
   });
 });
 
+// Select course by ID
 app.get('/api/courses/:id', (req, res) => {
   const { id } = req.params;
   db.get('SELECT * FROM courses WHERE id = ?', [id], (err, row) => {
@@ -38,6 +40,7 @@ app.get('/api/courses/:id', (req, res) => {
   });
 });
 
+// Insert new course
 app.post('/api/courses', (req, res) => {
   const { courseCode, title, credits, description, semester } = req.body;
 
@@ -66,7 +69,7 @@ app.post('/api/courses', (req, res) => {
   });
 });
 
-// PUT /api/courses/:id - UPDATE existing course
+// Update existing course
 app.put('/api/courses/:id', (req, res) => {
   const { id } = req.params;
   const { courseCode, title, credits, description, semester } = req.body;
@@ -100,7 +103,7 @@ app.put('/api/courses/:id', (req, res) => {
   });
 });
 
-// DELETE /api/courses/:id - DELETE course
+// Delete course
 app.delete('/api/courses/:id', (req, res) => {
   const { id } = req.params;
 
